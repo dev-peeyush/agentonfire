@@ -1,0 +1,22 @@
+from pydantic import BaseModel
+
+class LoginRequest(BaseModel):
+    email: str
+    password: str
+    
+class RegisterRequest(BaseModel):
+    first_name:str
+    last_name:str
+    email: str
+    password: str
+    
+class LoginResponse(BaseModel):
+    access_toekn: str
+    refresh_token: str
+    
+class RefreshRequest(BaseModel):
+    refresh_token: str
+
+class RefreshResponse(BaseModel):
+    access_toekn: str
+    refresh_token: str
