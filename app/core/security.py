@@ -3,18 +3,11 @@ from pydantic import BaseModel
 from fastapi.security import HTTPBearer
 from datetime import timedelta, datetime, timezone
 from app.api.v1.auth.schemas import  RegisterRequest
-
-SECRET_KEY = "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7"
-ALGORITHM = "HS256"
-# ACCESS_TOKEN_EXPIRE_MINUTES = 30
-ACCESS_TOKEN_EXPIRY_SECONDS = 180
-REFRESH_TOKEN_EXPIRY_SECONDS = 1800
-
+from app.core.config import settings
 
 class Token(BaseModel):
     access_token: str
     refresh_token:str
-    
 
 class TokenData(BaseModel):
     first_name: str
@@ -32,15 +25,14 @@ class RefreshTokenData(BaseModel):
     
 authSchema = HTTPBearer()
 
-
 def create_access_token(data:TokenData)->Token:
-    expire = datetime.now(timezone.utc) + timedelta(seconds=ACCESS_TOKEN_EXPIRY_SECONDS)
+    expire = datetime.now(timezone.utc) + timedelta(seconds=settings.ACCESS_TOKEN_EXPIRY_SECONDS)
     data.exp = expire
-    access_token = jwt.encode(data.model_dump(), key=SECRET_KEY, algorithm=ALGORITHM)
+    access_token = jwt.encode(data.model_dump(), key=settings.JWT_SECRET_KEY, algorithm=settings.JWT_ALGORITHM)
     refresh_token = create_refresh_token(
         RefreshTokenData(
-            id="123",
-            type="refresh"
+            id = data.id,
+            type = "refresh"
         )
     )
     return Token(
@@ -48,13 +40,13 @@ def create_access_token(data:TokenData)->Token:
     )
     
 def create_refresh_token(data:RefreshTokenData):
-    expire = datetime.now(timezone.utc) + timedelta(seconds=REFRESH_TOKEN_EXPIRY_SECONDS)
+    expire = datetime.now(timezone.utc) + timedelta(seconds=settings.REFRESH_TOKEN_EXPIRY_SECONDS)
     data.exp = expire
-    return jwt.encode(data.model_dump(), key=SECRET_KEY, algorithm=ALGORITHM)
+    return jwt.encode(data.model_dump(), key=settings.JWT_SECRET_KEY, algorithm=settings.JWT_ALGORITHM)
     
 def decode_access_token(jwt_token: str)->RegisterRequest:
     return jwt.decode(
-        jwt_token, key=SECRET_KEY, algorithms=ALGORITHM
+        jwt_token, key=settings.JWT_SECRET_KEY, algorithms=settings.JWT_ALGORITHM
     )
 
 def validate_access_token(access_token: str):
@@ -72,7 +64,3 @@ def validate_access_token(access_token: str):
     except jwt.InvalidTokenError:
         raise ValueError("Invalid token")
     
-    
-
-
-

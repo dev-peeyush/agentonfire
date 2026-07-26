@@ -1,7 +1,7 @@
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi import Depends, HTTPException, status
 import jwt
-from app.core.security import ALGORITHM, SECRET_KEY
+from app.core.config import settings
 from pydantic import BaseModel
 
 
@@ -24,8 +24,8 @@ async def get_current_user(
     try:
         payload = jwt.decode(
             token,
-            SECRET_KEY,
-            algorithms=[ALGORITHM],
+            settings.JWT_SECRET_KEY,
+            algorithms=[settings.JWT_ALGORITHM],
         )
         print(f"Payload: {payload}")
         print(f"Payload type: {payload.get("type")}")
