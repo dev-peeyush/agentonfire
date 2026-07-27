@@ -4,6 +4,7 @@ from fastapi.security import HTTPBearer
 from datetime import timedelta, datetime, timezone
 from app.api.v1.auth.schemas import  RegisterRequest
 from app.core.config import settings
+from pwdlib import PasswordHash
 
 class Token(BaseModel):
     access_token: str
@@ -24,6 +25,7 @@ class RefreshTokenData(BaseModel):
     
     
 authSchema = HTTPBearer()
+password_hash = PasswordHash.recommended()
 
 def create_access_token(data:TokenData)->Token:
     expire = datetime.now(timezone.utc) + timedelta(seconds=settings.ACCESS_TOKEN_EXPIRY_SECONDS)
@@ -63,4 +65,12 @@ def validate_access_token(access_token: str):
 
     except jwt.InvalidTokenError:
         raise ValueError("Invalid token")
+    
+    
+
+def hash_password(password: str) -> str:
+    return password_hash.hash(password)
+
+def verify_password(password: str, password_hash_str: str) -> bool:
+    return password_hash.verify(password, password_hash_str)
     

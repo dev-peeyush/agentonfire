@@ -9,4 +9,6 @@ class User(Base):
     first_name:Mapped[str] = mapped_column(default="first")
     last_name:Mapped[str] = mapped_column(default="last")
     email:Mapped[str] = mapped_column(unique=True, index=True)
+    password:Mapped[str] = mapped_column(nullable=False)
+
     
