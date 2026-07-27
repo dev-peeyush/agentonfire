@@ -12,8 +12,8 @@ Agent on Fire is an open-source framework for building scalable AI agent applica
 - 🤖 AI Agents powered by LangGraph
 - 🧠 Support for multiple LLM providers
   - OpenAI
-  - Ollama
-  - Azure OpenAI (planned)
+  - Anthropic (planned)
+  - Ollama (planned)
 - 🔐 JWT Authentication
 - 🗄️ PostgreSQL + SQLAlchemy
 - 🧩 Modular architecture
