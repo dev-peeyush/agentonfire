@@ -1,4 +1,6 @@
 from pydantic import BaseModel
 
-class ChatInitRequest(BaseModel):
-    access_token:str
+
+class ChatPayload(BaseModel):
+    message:str
+    

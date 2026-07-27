@@ -22,7 +22,7 @@ async def login(request: LoginRequest, auth_service: AuthService = Depends(get_a
     return await auth_service.login(request=request)
 
 @router.post('/refresh')
-async def refresh(request: RefreshRequest,get_current_user = Depends(get_current_user), auth_service:AuthService = Depends(get_auth_service)):
+async def refresh(request: RefreshRequest, auth_service:AuthService = Depends(get_auth_service)):
     print(f"is authtokenvalid f{request.refresh_token}")
     return await auth_service.refresh(request=request)
 

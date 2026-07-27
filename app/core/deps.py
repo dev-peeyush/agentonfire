@@ -7,7 +7,6 @@ from pydantic import BaseModel
 
 security = HTTPBearer()
 
-
 class BasicUserData(BaseModel):
     first_name: str
     last_name: str
@@ -49,7 +48,8 @@ async def get_current_user(
         return BasicUserData(
             first_name=payload.get('first_name'),
             last_name=payload.get('last_name'),
-            email=payload.get('email')
+            email=payload.get('email'),
+            id=user_id
         )
     except jwt.ExpiredSignatureError:
         raise HTTPException(
