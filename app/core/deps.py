@@ -1,8 +1,13 @@
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from fastapi import Depends, HTTPException, status
+from fastapi import Depends, HTTPException, status, Request
 import jwt
 from app.core.config import settings
 from pydantic import BaseModel
+
+
+
+def get_chat_agent(request: Request):
+    return request.app.state.chat_agent
 
 
 security = HTTPBearer()

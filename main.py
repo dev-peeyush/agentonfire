@@ -6,14 +6,19 @@ from contextlib import asynccontextmanager
 from app.ai.agents.chat_agents import chat_agent
 from app.db.engine import db_engine
 from app.db.base import Base
+from langgraph.checkpoint.postgres.aio import AsyncPostgresSaver
+from app.core.config import settings
+from app.ai.factory.agent_factory import init_chat_agent
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     print('server is up')
-    
     Base.metadata.create_all(bind=db_engine)
-    chat_agent()
+    
+    async with init_chat_agent() as agent:
+        app.state.chat_agent = agent
     yield
+ 
     print('server shutting down')
 
 app = FastAPI( lifespan= lifespan)
