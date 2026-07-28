@@ -1,6 +1,6 @@
 # 🔥 Agent on Fire
 
-> Build production-ready AI Agents with FastAPI, LangGraph, MCP, and modern Python.
+> Build production-ready AI Agents with FastAPI, LangChain, LangGraph, MCP, and modern Python.
 
 Agent on Fire is an open-source framework for building scalable AI agent applications. It provides a clean architecture for developing LLM-powered agents with authentication, memory, tools, databases, and APIs, while remaining modular and easy to extend.
 
@@ -9,7 +9,7 @@ Agent on Fire is an open-source framework for building scalable AI agent applica
 ## ✨ Features
 
 - 🚀 FastAPI backend
-- 🤖 AI Agents powered by LangGraph
+- 🤖 AI Agents powered by LangChain, LangGraph
 - 🧠 Support for multiple LLM providers
   - OpenAI
   - Anthropic (planned)
