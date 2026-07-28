@@ -74,9 +74,10 @@ uv run uvicorn app.main:app --reload
 
 - [x] FastAPI foundation
 - [x] JWT Authentication
-- [ ] PostgreSQL
+- [x] PostgreSQL CheckPointer
+- [x] Redis Checkpointer
+- [x] Memory - PostgreSQL
 - [ ] LangGraph Integration
-- [ ] Memory
 - [ ] MCP Support
 - [ ] RAG
 - [ ] Docker
