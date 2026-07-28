@@ -26,6 +26,6 @@ class ChatService:
             return response['messages'][-1].content
         except Exception as e:
             raise HTTPException(
-        status_code=400,
-        detail=str(e)
-    )
+                status_code=400,
+                detail=str(e)
+            )

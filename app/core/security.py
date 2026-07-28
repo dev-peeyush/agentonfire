@@ -19,6 +19,9 @@ class TokenData(BaseModel):
     exp: datetime = None
     
 class RefreshTokenData(BaseModel):
+    first_name: str
+    last_name: str
+    email: str
     id: str
     type: str
     exp: datetime = None
@@ -33,6 +36,9 @@ def create_access_token(data:TokenData)->Token:
     access_token = jwt.encode(data.model_dump(), key=settings.JWT_SECRET_KEY, algorithm=settings.JWT_ALGORITHM)
     refresh_token = create_refresh_token(
         RefreshTokenData(
+            first_name=data.first_name,
+            last_name=data.last_name,
+            email=data.last_name,
             id = data.id,
             type = "refresh"
         )
@@ -46,7 +52,13 @@ def create_refresh_token(data:RefreshTokenData):
     data.exp = expire
     return jwt.encode(data.model_dump(), key=settings.JWT_SECRET_KEY, algorithm=settings.JWT_ALGORITHM)
     
-def decode_access_token(jwt_token: str)->RegisterRequest:
+def decode_access_token(jwt_token: str)-> TokenData:
+    payload =  jwt.decode(
+        jwt_token, key=settings.JWT_SECRET_KEY, algorithms=settings.JWT_ALGORITHM
+    )
+    return TokenData.model_validate(payload)
+    
+def decode_access_token_basic(jwt_token: str)->RegisterRequest:
     return jwt.decode(
         jwt_token, key=settings.JWT_SECRET_KEY, algorithms=settings.JWT_ALGORITHM
     )

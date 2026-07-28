@@ -11,6 +11,7 @@ class Settings(BaseSettings):
     JWT_ALGORITHM: str
     ACCESS_TOKEN_EXPIRY_SECONDS: int
     REFRESH_TOKEN_EXPIRY_SECONDS: int
+    TOKEN_REFRESH_TIME: int
     
     model_config = SettingsConfigDict(
         env_file= '.env',

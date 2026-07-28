@@ -1,11 +1,12 @@
 from app.api.v1.auth.schemas import LoginRequest, RefreshRequest, RegisterRequest, RegisterResposne
-from fastapi import Request, HTTPException
-from app.core.security import create_access_token, TokenData, decode_access_token, hash_password, verify_password
+from fastapi import Request, HTTPException,status
+from app.core.security import create_access_token, TokenData, decode_access_token,decode_access_token_basic, hash_password, verify_password
 from sqlalchemy.orm import Session
 from sqlalchemy import select
 from app.db.models.user import User
-from pwdlib import PasswordHash
-
+from datetime import datetime, timezone
+from app.core.config import settings
+import jwt
 
 class AuthService:
     def __init__(self, db: Session):
@@ -36,12 +37,14 @@ class AuthService:
         user = self.db.scalar(select(User).where(User.email == request.email))
         if user == None: 
             raise HTTPException(
-                status_code=401,detail="Incorrect email or password"
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Incorrect email or password"
             )
             
         if not verify_password(request.password, user.password):
             raise HTTPException(        
-                    status_code=401,detail="Incorrect email or password"
+                    status_code=status.HTTP_401_UNAUTHORIZED,
+                    detail="Incorrect email or password"
                 )
             
         return create_access_token(TokenData(
@@ -55,7 +58,51 @@ class AuthService:
 
     
     async def refresh(self, request: RefreshRequest):
-        return request
+        
+        try:
+            decode_access_token(request.refresh_token)
+        except jwt.ExpiredSignatureError as e:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Refresh token has expired"
+            )
+        except jwt.InvalidTokenError:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid refresh token",
+            )
+        
+        try:
+            payload = decode_access_token(request.access_token)
+            timediff = (payload.exp  - datetime.now(timezone.utc))
+            seconds_left = int(timediff.total_seconds())    
+            if seconds_left > settings.TOKEN_REFRESH_TIME:
+                return request
+            else :
+                return create_access_token(TokenData(
+                                    first_name=payload.first_name,
+                                    last_name=payload.last_name,
+                                    email=payload.email,
+                                    id =payload.id,
+                                    type='access'
+                                ))
+        except jwt.ExpiredSignatureError:
+            payload = decode_access_token(request.refresh_token)
+            return create_access_token(TokenData(
+                                first_name=payload.first_name,
+                                last_name=payload.last_name,
+                                email=payload.email,
+                                id =payload.id,
+                                type='access'
+                            ))
+            
+        except jwt.InvalidTokenError:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid access token"
+            )   
+        
+        
     
     async def me(self, request:Request):
-        return decode_access_token()
+        return decode_access_token_basic()
