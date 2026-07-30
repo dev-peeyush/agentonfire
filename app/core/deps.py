@@ -10,6 +10,7 @@ def get_chat_agent(request: Request):
     return request.app.state.chat_agent
 
 
+
 security = HTTPBearer()
 
 class BasicUserData(BaseModel):

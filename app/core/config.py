@@ -14,6 +14,8 @@ class Settings(BaseSettings):
     REFRESH_TOKEN_EXPIRY_SECONDS: int
     TOKEN_REFRESH_TIME: int
     CHECKPOINTER_TYPE: str
+    EMBEDDING_MODEL:str
+    FAISS_INDEX_PATH:str
     
     model_config = SettingsConfigDict(
         env_file= '.env',

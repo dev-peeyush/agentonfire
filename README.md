@@ -77,9 +77,9 @@ uv run uvicorn app.main:app --reload
 - [x] PostgreSQL CheckPointer
 - [x] Redis Checkpointer
 - [x] Memory - PostgreSQL
-- [ ] LangGraph Integration
+- [x] LangGraph Integration
 - [ ] MCP Support
-- [ ] RAG
+- [x] RAG
 - [ ] Docker
 - [ ] Kubernetes
 - [ ] CI/CD
