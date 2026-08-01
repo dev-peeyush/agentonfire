@@ -14,6 +14,17 @@ Agent on Fire is an open-source framework for building scalable AI agent applica
   - OpenAI
   - Anthropic (planned)
   - Ollama (planned)
+- 🎙️ Voice AI
+  - Speech-to-Text(Planned)
+  - Streaming Text-to-Speech (Kokoro, Kokoro-mlx)
+- 📚 Retrieval-Augmented Generation (RAG)
+- 🔍 FAISS Vector Database
+- 📄 PDF Knowledge Base Ingestion
+- 🧩 Modular Service-Oriented Architecture
+- 🔌 MCP (Model Context Protocol) support
+- 💾 LangGraph Checkpointers
+  - PostgreSQL
+  - Redis
 - 🔐 JWT Authentication
 - 🗄️ PostgreSQL + SQLAlchemy
 - 🧩 Modular architecture
@@ -72,17 +83,46 @@ uv run uvicorn app.main:app --reload
 
 ## Roadmap
 
-- [x] FastAPI foundation
+### Core Platform
+
+- [x] FastAPI Foundation
 - [x] JWT Authentication
-- [x] PostgreSQL CheckPointer
-- [x] Redis Checkpointer
-- [x] Memory - PostgreSQL
+- [x] PostgreSQL
+- [x] SQLAlchemy
+- [x] OpenAPI / Swagger
+
+### AI Agent
+
+- [x] LangChain Integration
 - [x] LangGraph Integration
+- [x] PostgreSQL Checkpointer
+- [x] Redis Checkpointer
+- [x] Memory Persistence
+
+### Retrieval-Augmented Generation
+
+- [x] PDF Loader
+- [x] Recursive Text Chunking
+- [x] OpenAI Embeddings
+- [x] FAISS Vector Store
+- [x] Document Ingestion Pipeline
+- [ ] Multiple Vector Databases
+
+### Voice AI
+
+- [x] Kokoro TTS
+- [x] Streaming Audio Response
+- [ ] Speech-to-Text
+- [ ] Real-time Voice Conversations
+
+### Future
+
 - [ ] MCP Support
-- [x] RAG
+- [ ] Multi-Agent Support
 - [ ] Docker
 - [ ] Kubernetes
 - [ ] CI/CD
+- [ ] Observability
 
 ---
 
