@@ -16,6 +16,7 @@ class Settings(BaseSettings):
     CHECKPOINTER_TYPE: str
     EMBEDDING_MODEL:str
     FAISS_INDEX_PATH:str
+    VOICE_MODEL:str  #kokoro/kokoro_mlx
     
     model_config = SettingsConfigDict(
         env_file= '.env',

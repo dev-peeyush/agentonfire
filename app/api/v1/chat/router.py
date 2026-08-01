@@ -4,7 +4,7 @@ from app.api.v1.chat.schemas import ChatPayload
 from app.core.deps import get_current_user,get_chat_agent
 
 
-router = APIRouter(prefix='/chat', tags=['AI Chat Agent'])
+router = APIRouter(prefix='/chat', tags=['Chat AI Agent'])
 
 chat_agent = Depends(get_chat_agent)
 @router.post('/chat')
