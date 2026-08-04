@@ -110,10 +110,9 @@ uv run uvicorn app.main:app --reload
 
 ### Voice AI
 
-- [x] Kokoro TTS
-- [x] Streaming Audio Response
-- [ ] Speech-to-Text
-- [ ] Real-time Voice Conversations
+- [x] Streaming Text-to-Speech(Kokoro)
+- [x] Speech-to-Text
+- [ ] Real-time Voice Conversations(Speech-to-Speech)
 
 ### Future
 

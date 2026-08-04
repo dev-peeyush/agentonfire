@@ -10,6 +10,7 @@ from langgraph.checkpoint.postgres.aio import AsyncPostgresSaver
 from app.core.config import settings
 from app.ai.factory.agent_factory import init_chat_agent
 from fastapi.templating import Jinja2Templates
+from app.ai.voice.transcribe.whisper_service import WhisperService
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -18,6 +19,8 @@ async def lifespan(app: FastAPI):
     
     async with init_chat_agent() as agent:
         app.state.chat_agent = agent
+        
+    app.state.whisper_service = WhisperService() 
     yield
  
     print('server shutting down')

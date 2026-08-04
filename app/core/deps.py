@@ -3,13 +3,15 @@ from fastapi import Depends, HTTPException, status, Request
 import jwt
 from app.core.config import settings
 from pydantic import BaseModel
-
+from app.ai.voice.transcribe.whisper_service import WhisperService
 
 
 def get_chat_agent(request: Request):
     return request.app.state.chat_agent
 
 
+def get_whisper_service(request: Request)->WhisperService:
+    return request.app.state.whisper_service
 
 security = HTTPBearer()
 
