@@ -6,7 +6,7 @@ import traceback
 
 class ChatService:
     
-    async def message(self, request: ChatPayload, user_data:BasicUserData, chat_agent):
+    async def message(self, message: str, user_data:BasicUserData, chat_agent):
         
         config = {
             'configurable':{
@@ -18,7 +18,7 @@ class ChatService:
                 'messages':[
                     {
                         'role':'user',
-                        'content': request.message
+                        'content': message
                     }
                 ]
             }, config=config)

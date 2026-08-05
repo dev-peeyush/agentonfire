@@ -40,6 +40,13 @@ async def text_to_voice(request:Request):
         request=request,
         name="text_to_voice.html"
     )
+    
+@app.get('/voice_to_voice_web')
+async def voice_to_voice(request:Request):
+    return templates.TemplateResponse(
+        request=request,
+        name="voice_to_voice.html"
+    )
 
 def main():
     uvicorn.run(
