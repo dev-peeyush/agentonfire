@@ -34,14 +34,14 @@ templates = Jinja2Templates(directory="templates")
 async def home():
     return 'FastAPI is running!'
 
-@app.get('/text_to_voice_web')
+@app.get('/text_to_voice_web', description="This endpoint serves the text-to-voice conversion web page. Open the browser and navigate to http://localhost:8000/text_to_voice_web to access the page. You can enter text in the input field and click the 'Play' button to hear the AI's voice response. English is the only supported language for now.")
 async def text_to_voice(request:Request):
     return templates.TemplateResponse(
         request=request,
         name="text_to_voice.html"
     )
     
-@app.get('/voice_to_voice_web')
+@app.get('/voice_to_voice_web', description="This endpoint serves the voice-to-voice conversation web page. Open the browser and navigate to http://localhost:8000/voice_to_voice_web to access the page. You can upload an audio file (in .mp3 format) and click the 'Play' button to hear the AI's voice response based on the transcribed text from your audio input. English is the only supported language for now.")
 async def voice_to_voice(request:Request):
     return templates.TemplateResponse(
         request=request,
