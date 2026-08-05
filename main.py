@@ -34,7 +34,7 @@ templates = Jinja2Templates(directory="templates")
 async def home():
     return 'FastAPI is running!'
 
-@app.get('/text_to_voice')
+@app.get('/text_to_voice_web')
 async def text_to_voice(request:Request):
     return templates.TemplateResponse(
         request=request,
