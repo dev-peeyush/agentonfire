@@ -15,7 +15,7 @@ Agent on Fire is an open-source framework for building scalable AI agent applica
   - Anthropic (planned)
   - Ollama (planned)
 - 🎙️ Voice AI
-  - Speech-to-Text(Planned)
+  - Speech-to-Text(Whisper)
   - Streaming Text-to-Speech (Kokoro, Kokoro-mlx)
 - 📚 Retrieval-Augmented Generation (RAG)
 - 🔍 FAISS Vector Database
