@@ -1,4 +1,4 @@
-from app.api.v1.auth.schemas import LoginRequest, RefreshRequest, RegisterRequest, RegisterResposne
+from app.api.v1.auth.schemas import LoginRequest, RefreshRequest, RegisterRequest, RegisterResponse
 from fastapi import Request, HTTPException,status
 from app.core.security import create_access_token, TokenData, decode_access_token,decode_access_token_basic, hash_password, verify_password
 from sqlalchemy.orm import Session
@@ -24,13 +24,13 @@ class AuthService:
         self.db.commit()
         self.db.refresh(user)
         
-        resposne = RegisterResposne(
+        response = RegisterResponse(
             id=user.id,
             email=user.email,
             first_name=user.first_name,
             last_name= user.last_name
         )
-        return resposne       
+        return response       
     
     async def login(self, request:LoginRequest):
         
